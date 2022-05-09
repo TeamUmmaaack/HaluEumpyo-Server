@@ -67,3 +67,5 @@ node_modules/
 
 # Firebase service accont
 haluempyo-firebase-adminsdk-k3law-b8405e8668.json
+
+.DS_Store
