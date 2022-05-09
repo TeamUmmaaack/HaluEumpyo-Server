@@ -13,6 +13,9 @@ module.exports = {
   NO_USER: '존재하지 않는 회원입니다.',
   MISS_MATCH_PW: '비밀번호가 맞지 않습니다.',
 
+  // 일기
+  ADD_DIARY_SUCCESS: '일기 작성 성공',
+
   // 프로필 조회
   READ_PROFILE_SUCCESS: '프로필 조회 성공',
 };

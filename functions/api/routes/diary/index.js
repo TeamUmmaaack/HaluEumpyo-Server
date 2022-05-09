@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-router.use('/diary', require('./diary'));
+router.post('/', require('./DiaryPOST'));
 
 module.exports = router;
