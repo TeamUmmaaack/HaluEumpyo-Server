@@ -16,6 +16,9 @@ module.exports = {
   // 일기
   ADD_DIARY_SUCCESS: '일기 작성 성공',
 
+  // 캘린더 불러오기
+    READ_CALENDER_SUCCESS: '캘린더 불러오기 성공',
+
   // 프로필 조회
   READ_PROFILE_SUCCESS: '프로필 조회 성공',
 };
