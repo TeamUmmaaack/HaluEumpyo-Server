@@ -22,17 +22,17 @@ module.exports = async (req, res) => {
 
   let client;
 
-  const flaskResult = (content) => {
+  const flaskResult = async (content) => {
     try {
-      axios
-        .post('http://127.0.0.1:5000/test', { content: content })
+      await axios
+        .post('http://34.64.56.193:5000/emotion', { content: content })
         .then((response) => {
-          console.log(response.data.emotion_id);
-          emotionId = response.data.emotion_id ?? response.data.emotion_id ?? 0;
+          console.log(response.data.emotion);
+          emotionId = response.data.emotion;
         })
         .catch((e) => {
           console.log('에러가 발생했습니다.');
-          throw e;
+          console.log(e.response);
         });
     } catch (e) {
       console.error(e);
@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
   };
 
   try {
-    flaskResult(content);
+    await flaskResult(content);
     client = await db.connect(req);
 
     const diaryData = await diaryDB.postDiary(client, userId, content, emotionId);
