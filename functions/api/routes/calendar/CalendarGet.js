@@ -25,6 +25,12 @@ module.exports = async (req, res) => {
     client = await db.connect(req);
 
     const calendar = await calendarDB.getCalendar(client, userId, startDate, endDate); //userId, startDate, endDate를 통해 기간 내에 속한 캘린더 디비에서 가져옴
+    calendar.map((obj) => {
+      /**
+       * createdAt format 수정
+       */
+      obj.createdAt = dayjs(`${obj.createdAt}`).format('YYYY-MM-DD ddd HH:mm');
+    });
     res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_CALENDER_SUCCESS, calendar));
   } catch (error) {
     functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
