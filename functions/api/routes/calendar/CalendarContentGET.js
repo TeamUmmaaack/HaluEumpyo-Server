@@ -5,8 +5,6 @@ const statusCode = require('../../../constants/statusCode');
 const responseMessage = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
 const { calendarDB } = require('../../../db');
-const axios = require('axios');
-const dayjs = require('dayjs');
 
 /**
  *  @route GET /:userId/diary
