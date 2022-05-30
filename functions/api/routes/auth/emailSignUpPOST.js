@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
         return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.ALREADY_EMAIL));
       }
       if (userFirebase.error.code === 'auth/invalid-email') {
-        return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.INVAILD_EMAIL));
+        return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.INVALID_EMAIL));
       }
       if (userFirebase.error.code === 'auth/invalid-password') {
         return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.INVALID_PASSWORD));
