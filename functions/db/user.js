@@ -4,7 +4,7 @@ const convertSnakeToCamel = require('../lib/convertSnakeToCamel');
 const getUserByFirebaseId = async (client, firebaseId) => {
   const { rows } = await client.query(
     `
-    SELECT id, email, id_firebase FROM "user" u
+    SELECT id, email, username, id_firebase FROM "user" u
     WHERE id_firebase = $1
     AND is_deleted = FALSE
     `,
