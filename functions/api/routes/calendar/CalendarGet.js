@@ -7,8 +7,14 @@ const db = require('../../../db/db');
 const { calendarDB } = require('../../../db');
 const dayjs = require('dayjs');
 
+/**
+ *  @route GET /calendar/detail
+ *  @desc 캘린더 날짜별 조회
+ *  @access Private
+ */
+
 module.exports = async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.user;
   const { date } = req.query;
 
   //유저 아이디와 오늘 날짜 없는 경우임
