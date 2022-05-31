@@ -8,6 +8,8 @@ module.exports = {
   TOKEN_EMPTY: '토큰이 없습니다.',
   TOKEN_EXPIRED: '토큰이 만료되었습니다.',
   TOKEN_INVALID: '유효하지 않은 토큰입니다.',
+  TOKEN_REISSUE_SUCCESS: '토큰을 재발급하였습니다.',
+  TOKEN_STILL_VALID: '토큰이 아직 유효합니다.',
 
   // 회원가입
   CREATED_USER: '회원 가입 성공',
