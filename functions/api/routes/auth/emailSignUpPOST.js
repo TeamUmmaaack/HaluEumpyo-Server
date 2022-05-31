@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
         return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.ALREADY_EMAIL));
       }
       if (userFirebase.error.code === 'auth/invalid-email') {
-        return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.INVAILD_EMAIL));
+        return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.INVALID_EMAIL));
       }
       if (userFirebase.error.code === 'auth/invalid-password') {
         return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.INVALID_PASSWORD));
@@ -46,9 +46,9 @@ module.exports = async (req, res) => {
     }
 
     const firebaseId = userFirebase.uid;
-    const user = await userDB.addUser(client, email, username, firebaseId);
-    const accessToken = jwtHandlers.sign({ id: user.id, email: user.email, idFirebase: user.idFirebase });
     const refreshToken = jwtHandlers.signRefresh();
+    const user = await userDB.addUser(client, email, username, firebaseId, refreshToken);
+    const accessToken = jwtHandlers.sign({ id: user.id, email: user.email, idFirebase: user.idFirebase });
 
     res.status(statusCode.CREATED).send(success(statusCode.CREATED, responseMessage.CREATED_USER, { email, username, accessToken, refreshToken }));
   } catch (error) {

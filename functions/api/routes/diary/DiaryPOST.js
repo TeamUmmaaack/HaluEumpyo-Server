@@ -6,7 +6,6 @@ const responseMessage = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
 const { diaryDB, musicDB } = require('../../../db');
 const axios = require('axios');
-const { response } = require('express');
 
 /**
  *  @route POST /diary
@@ -15,11 +14,12 @@ const { response } = require('express');
  */
 
 module.exports = async (req, res) => {
-  const { userId, content } = req.body;
+  const { userId } = req.user;
+  const { content } = req.body;
   let emotionId,
     musicId = -1;
 
-  if (!content) return res.status(statusCode.BAD_REQUEST).send(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE);
+  if (!content) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
 
   let client;
 

@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
         return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.NO_USER));
       }
       if (userFirebase.error.code === 'auth/invalid-email') {
-        return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.INVAILD_EMAIL));
+        return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.INVALID_EMAIL));
       }
       if (userFirebase.error.code === 'auth/wrong-password') {
         return res.status(statusCode.NOT_FOUND).send(fail(statusCode.NOT_FOUND, responseMessage.MISS_MATCH_PW));
@@ -46,11 +46,16 @@ module.exports = async (req, res) => {
     }
 
     const firebaseId = userFirebase.user.uid;
-    const user = await userDB.getUserByFirebaseId(client, firebaseId);
-    const username = user.username;
-    const accessToken = jwtHandlers.sign({ id: user.id, email: user.email, idFirebase: user.idFirebase });
-    const refreshToken = jwtHandlers.signRefresh();
+    const existedUser = await userDB.getUserByFirebaseId(client, firebaseId);
 
+    if (!existedUser || existedUser.isDeleted) {
+      return res.status(statusCode.OK).send(success(statusCode.OK, responseMessage.NO_USER));
+    }
+
+    const refreshToken = jwtHandlers.signRefresh();
+    const user = await userDB.updateRefreshToken(client, existedUser.id, refreshToken);
+    const accessToken = jwtHandlers.sign({ id: existedUser.id, email: existedUser.email, idFirebase: existedUser.idFirebase });
+    const username = existedUser.username;
     res.status(statusCode.OK).send(success(statusCode.OK, responseMessage.LOGIN_SUCCESS, { username, accessToken, refreshToken }));
   } catch (error) {
     functions.logger.error(`[LOGIN ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] email: ${email} ${error}`);

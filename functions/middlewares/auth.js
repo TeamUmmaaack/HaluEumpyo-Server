@@ -8,8 +8,8 @@ const { userDB } = require('../db');
 const { TOKEN_INVALID, TOKEN_EXPIRED } = require('../constants/jwt');
 
 const checkUser = async (req, res, next) => {
-  // request headers에 accesstoken라는 이름으로 담긴 값(jwt)을 가져옵니다.
-  const { accesstoken } = req.headers;
+  // request headers에 x-access-token라는 이름으로 담긴 값(jwt)을 가져옵니다.
+  const accesstoken = req.header('x-access-token');
 
   // accesstoken이 없을 시의 에러 처리입니다.
   if (!accesstoken) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.TOKEN_EMPTY));
@@ -38,7 +38,11 @@ const checkUser = async (req, res, next) => {
 
     // 유저를 찾았으면, req.user에 유저 객체를 담아서 next()를 이용해 다음 middleware로 보냅니다.
     // 다음 middleware는 req.user에 담긴 유저 정보를 활용할 수 있습니다.
-    req.user = user;
+    const returnUser = {
+      userId: user.id,
+      firebaseId: user.idFirebase,
+    };
+    req.user = returnUser;
     next();
   } catch (error) {
     console.log(error);

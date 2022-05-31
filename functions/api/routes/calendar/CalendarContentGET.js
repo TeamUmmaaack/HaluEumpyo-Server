@@ -7,13 +7,13 @@ const db = require('../../../db/db');
 const { calendarDB } = require('../../../db');
 
 /**
- *  @route GET /:userId/diary
+ *  @route GET /calendar
  *  @desc 캘린더 전체 조회
  *  @access Private
  */
 
 module.exports = async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.user;
 
   //유저 아이디와 오늘 날짜 없는 경우임
   if (!userId) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
