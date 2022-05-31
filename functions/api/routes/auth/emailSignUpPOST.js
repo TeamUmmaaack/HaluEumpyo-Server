@@ -46,9 +46,9 @@ module.exports = async (req, res) => {
     }
 
     const firebaseId = userFirebase.uid;
-    const user = await userDB.addUser(client, email, username, firebaseId);
-    const accessToken = jwtHandlers.sign({ id: user.id, email: user.email, idFirebase: user.idFirebase });
     const refreshToken = jwtHandlers.signRefresh();
+    const user = await userDB.addUser(client, email, username, firebaseId, refreshToken);
+    const accessToken = jwtHandlers.sign({ id: user.id, email: user.email, idFirebase: user.idFirebase });
 
     res.status(statusCode.CREATED).send(success(statusCode.CREATED, responseMessage.CREATED_USER, { email, username, accessToken, refreshToken }));
   } catch (error) {
