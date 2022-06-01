@@ -21,8 +21,6 @@ module.exports = async (req, res) => {
 
   let client;
 
-  dayjs.locale('ko');
-
   try {
     client = await db.connect(req);
 
@@ -33,7 +31,7 @@ module.exports = async (req, res) => {
        * KST = UTC + 9이므로
        * UTC 시간으로 저장된 CreatedAt에 9시간 더하기
        */
-      obj.createdAt = dayjs(`${obj.createdAt}`).add(9, 'hour').format('YYYY-MM-DD dddd HH:mm');
+      obj.createdAt = dayjs(`${obj.createdAt}`).locale('ko').add(9, 'hour').format('YYYY-MM-DD dddd HH:mm');
     });
     res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_CALENDER_SUCCESS, calendar));
   } catch (error) {
