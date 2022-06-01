@@ -46,7 +46,6 @@ module.exports = async (req, res) => {
        */
       obj.createdAt = dayjs(`${obj.createdAt}`).tz('Asia/Seoul').format('YYYY-MM-DD ddd HH:mm');
     });
-    console.log(calendar);
     res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_CALENDER_SUCCESS, calendar));
   } catch (error) {
     functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
