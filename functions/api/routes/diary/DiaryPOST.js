@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
   const flaskResult = async (content) => {
     try {
       await axios
-        .post('http://34.64.56.193:5000/emotion', { content: content })
+        .post('http://34.64.40.173:5000/emotion', { content: content })
         .then((response) => {
           console.log(response.data);
           emotionId = response.data.emotion;
