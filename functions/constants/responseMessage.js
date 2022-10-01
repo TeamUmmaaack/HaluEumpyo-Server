@@ -26,6 +26,7 @@ module.exports = {
 
   // 일기
   ADD_DIARY_SUCCESS: '일기 작성 성공',
+  DUPLICATE_DIARY: '일기는 하루에 한 번만 작성할 수 있습니다.',
 
   // 캘린더 불러오기
   READ_CALENDER_SUCCESS: '캘린더 불러오기 성공',

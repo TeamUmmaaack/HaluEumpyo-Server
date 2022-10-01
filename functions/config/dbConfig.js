@@ -6,4 +6,5 @@ module.exports = {
   host: process.env.DB_HOST,
   database: process.env.DB_DB,
   password: process.env.DB_PASSWORD,
+  timezone: 'Asia/Seoul',
 };
