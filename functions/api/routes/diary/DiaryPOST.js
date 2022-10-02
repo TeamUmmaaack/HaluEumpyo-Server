@@ -80,6 +80,7 @@ module.exports = async (req, res) => {
       }
 
       const responseData = {
+        emotionId: emotionId,
         recommendedMusic: recommendedMusicData,
         similarMusics: similarMusicData,
       };
